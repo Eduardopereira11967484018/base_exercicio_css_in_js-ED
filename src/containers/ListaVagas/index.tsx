@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import FormVagas from '../../components/FormVagas'
-import Vaga from '../../components/Vaga'
-import styled from 'styled-components'
 
-type VagaType = {
-  id: number
+import Vaga from '../../components/Vaga'
+
+import { ListaVagasStyle } from '../../style'
+
+type Vaga = {
+  id: string
   titulo: string
   localizacao: string
   nivel: string
@@ -14,7 +16,7 @@ type VagaType = {
   requisitos: string[]
 }
 
-const vagas: VagaType[] = [
+const vagas = [
   {
     id: 1,
     titulo: 'Desenvolvedor front-end',
@@ -90,46 +92,29 @@ const vagas: VagaType[] = [
 const ListaVagas = () => {
   const [filtro, setFiltro] = useState<string>('')
 
-  // eslint-disable-next-line prettier/prettier
   const vagasFiltradas = vagas.filter(
-    (vaga) => vaga.titulo.toLowerCase().includes(filtro.toLowerCase())
+    (x) => x.titulo.toLocaleLowerCase().search(filtro) >= 0
   )
 
   return (
-    <Wrapper>
+    <ListaVagasStyle>
       <FormVagas aoPesquisar={(termo: string) => setFiltro(termo)} />
-      <VagasList>
-        {vagasFiltradas.map((vaga) => (
+      <ul className="vagas">
+        {vagasFiltradas.map((vag) => (
           <Vaga
-            key={vaga.id}
-            titulo={vaga.titulo}
-            localizacao={vaga.localizacao}
-            nivel={vaga.nivel}
-            modalidade={vaga.modalidade}
-            salarioMin={vaga.salarioMin}
-            salarioMax={vaga.salarioMax}
-            requisitos={vaga.requisitos}
+            key={vag.id}
+            titulo={vag.titulo}
+            localizacao={vag.localizacao}
+            nivel={vag.nivel}
+            modalidade={vag.modalidade}
+            salarioMin={vag.salarioMin}
+            salarioMax={vag.salarioMax}
+            requisitos={vag.requisitos}
           />
         ))}
-      </VagasList>
-    </Wrapper>
+      </ul>
+    </ListaVagasStyle>
   )
 }
-
-const Wrapper = styled.div`
-  margin-top: 32px;
-`
-
-const VagasList = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 16px;
-  row-gap: 16px;
-  margin-top: 32px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`
 
 export default ListaVagas

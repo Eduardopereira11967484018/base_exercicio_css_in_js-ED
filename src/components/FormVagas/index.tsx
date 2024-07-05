@@ -1,37 +1,7 @@
 import { FormEvent, useState } from 'react'
-import styled from 'styled-components'
 
-// Componentes Styled
-const Form = styled.form`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  background-color: var(--cor-secundaria);
-  padding: 32px;
-  border-radius: 12px;
-  margin-top: 40px;
-`
+import { FormvagasStyle } from '../../style'
 
-const Button = styled.button`
-  background-color: var(--cor-principal);
-  border: 1px solid var(--cor-principal);
-  height: 40px;
-  padding: 0 16px;
-  font-size: 18px;
-  color: var(--cor-secundaria);
-  margin-left: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: darken(var(--cor-principal), 10%);
-  }
-`
-
-const Input = styled.input`
-  padding: 0 16px;
-  outline-color: var(--cor-principal);
-`
-
-// Componente FormVagas
 type Props = {
   aoPesquisar: (termo: string) => void
 }
@@ -45,18 +15,17 @@ const FormVagas = ({ aoPesquisar }: Props) => {
   }
 
   return (
-    <Form onSubmit={aoEnviarForm}>
-      <Input
-        className="campo" // Adicione uma classe se desejar manter a compatibilidade com CSS existente
+    <FormvagasStyle onSubmit={aoEnviarForm}>
+      <input
+        className="campo"
         placeholder="Front-end, fullstack, node, design"
         onChange={(e) => setTermo(e.target.value)}
         type="search"
       />
-      <Button className="btnPesquisar" type="submit">
+      <button className="btnPesquisar" type="submit">
         Pesquisar
-      </Button>
-    </Form>
+      </button>
+    </FormvagasStyle>
   )
 }
-
 export default FormVagas
